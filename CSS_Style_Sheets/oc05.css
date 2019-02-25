@@ -1,0 +1,9 @@
+html, body { padding: 0px; margin: 0px; height: 100%;}
+h1 { margin: 0px; text-align : center;}
+header { height: 15%; background-color : yellow; overflow: auto;}
+nav { width: 20%; height: 75%; background-color: orange;
+			float: left; overflow: hidden;}
+section { width : 80%; height : 75%; background : lightblue;
+					float: left; overflow: auto;}
+footer { font-size: 0.9em; height : 10%; background-color: plum;
+				 clear: left; overflow: hidden;}

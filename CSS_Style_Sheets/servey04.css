@@ -1,0 +1,7 @@
+@import url('oc04.css');
+header { margin-bottom: 1em;}
+article { font-family: 휴먼편지체; margin-bottom: 0;}
+section { font-size: 0.9em;}
+textarea { font: 0.8em normal;}
+span { margin-left: 1em; color: darkblue; font: bold 110% normal;}
+form { background: #FF7575; margin-left: 0.5em; margin-right: 0.5em;}

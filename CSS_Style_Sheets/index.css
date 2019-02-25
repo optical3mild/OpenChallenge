@@ -1,0 +1,6 @@
+header { border-bottom: .5px solid;}
+nav { width: 20%; float: left;}
+section { width: 80%; float: left;}
+
+a[href^="https"]::before { content: "🔗 ";}
+a[href^="mailto"]::before { content: "📧 ";}

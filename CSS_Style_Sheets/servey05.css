@@ -1,0 +1,6 @@
+html, body { padding: 0px; margin: 0px; height: 100%; overflow: auto;}
+h1 { margin: 0px; text-align : center;}
+header { height: 20%; background-color : #B8F169; overflow: hidden;}
+footer { height : 20%; background-color: #ED62ED; overflow: hidden;}
+form { height : 80%; background : #FF7575; padding-bottom: 20px;
+			 margin: 20px 10px 20px 10px;}
