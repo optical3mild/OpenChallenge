@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>별 문자 출력하기</title>
+</head>
+<body>
+  <h3>별 문자 출력하기</h3>
+  <hr>
+  <script>
+    var n = prompt("정수를 입력하세요","");
+    for (var i=1; i<=n; i++) {
+      for (var k=1; k<=i; k++) {
+        document.write("*");
+      }
+      document.write("<br>");
+    }
+    for (var i=0; i<n; i++) {
+      for (var k=0; k<i; k++) {
+        document.write("&nbsp;");
+      }
+      for (var s=n-i; s>0; s--) {
+        document.write("*");
+      }
+      document.write("<br>");
+    }
+  </script>
+</body>
+</html>
