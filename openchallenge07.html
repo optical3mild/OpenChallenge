@@ -1,26 +1,62 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>입력된 명단정리</title> <!--1)중복 이름제거, 2)성씨통계 + 텍스트 파일로 입력받기-->
+	<meta charset="UTF-8">
+	<title>사용자 입력 처리</title>
 </head>
 <body>
-  <script type="text/javascript">
-    var input = prompt("이름을 ','로 분리하여 입력하세요.");
-    document.write(input + "<br><hr>");
+	<h3>사용자 입력 처리</h3>
+	<hr>
+	<script>
+		var input = prompt("이름을 ','로 분리하여 입력하세요.");
+		document.write(input + "<br><hr>");
+		var i, k, duplicated;
 
-    var names = input.split(",");
-    var nameList = new Array();
+		var names = input.split(",");
+		var newNames = new Array();
+		newNames[0] = names[0].trim();
 
-    for (var i=0; i<names.length; i++) { //
-      for (var k=0; k<nameList.length; k++) { //이름별로 split된 명단을 각각 새 Array로 옮김
-        if (names[i].indexOf(nameList[k]) = -1) {
-          namelist[k] = names[i].trim
-        }
-      }
-    }
-  </script>
+		for (i=1; i<names.length; i++) {
+			duplicated = false;
+			for (k=0; k<newNames.length; k++) { //names[i]를 namelist전체와 1:1 대조
+				if (names[i].indexOf(newNames[k]) >= 0) { //발견 시 duplicate = true; 다음 if를 건너뛰는 조건
+					duplicated = true;                  //break로 for문을 벗어남.
+					break;
+				}
+			}
+			if (!duplicated)//duplicate값이 false => 두 배열이 불일치 할때,
+				newNames[k] = names[i].trim(); //names[i]의 공백을 없애고 대입
+		}
+		newNames.sort();
+		document.write("1) 중복 이름을 제거한 후 오름차순 정렬<br>")
+		for (i=0; i<newNames.length; i++)
+			document.write("&nbsp;&nbsp;&nbsp;" + newNames[i] + "<br>");
+		document.write("<hr>")
+<!-- --------------------------------------------------------------------- -->
+		var lastNames = new Array();
+		var lastCount = new Array();
+
+		lastNames[0] = newNames[0].charAt(0);
+		lastCount[0] = 1;
+		for (i=1; i<newNames.length; i++) {
+			duplicated = false;
+			for (k=0; k<lastNames.length; k++) {
+				if (newNames[i].charAt(0) == lastNames[k]) {
+					lastCount[k]++;
+					duplicated = true;
+					break;
+				}
+			}
+			if (!duplicated) {
+				lastNames[k] = newNames[i].charAt(0);
+				lastCount[k] = 1;
+			}
+		}
+		document.write("2) 입력한 이름중 성씨와 횟수<br>")
+		for (i=0; i<lastNames.length; i++)
+			document.write("&nbsp;&nbsp;&nbsp;" + lastNames[i] +
+										 " - " + lastCount[i] + "<br>");
+		document.write("<hr>")
+	</script>
 </body>
 </html>
