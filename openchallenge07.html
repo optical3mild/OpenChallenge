@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>입력된 명단정리</title> <!--1)중복 이름제거, 2)성씨통계 + 텍스트 파일로 입력받기-->
+</head>
+<body>
+  <script type="text/javascript">
+    var input = prompt("이름을 ','로 분리하여 입력하세요.");
+    document.write(input + "<br><hr>");
+
+    var names = input.split(",");
+    var nameList = new Array();
+
+    for (var i=0; i<names.length; i++) { //
+      for (var k=0; k<nameList.length; k++) { //이름별로 split된 명단을 각각 새 Array로 옮김
+        if (names[i].indexOf(nameList[k]) = -1) {
+          namelist[k] = names[i].trim
+        }
+      }
+    }
+  </script>
+</body>
+</html>
