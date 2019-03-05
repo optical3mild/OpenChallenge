@@ -8,15 +8,59 @@
 	<style>
 		table { border-collapse: collapse; border: 2px solid pink;
 						background-color: rgb(255,217,230);}
-		td { padding: 0 0.5em 0 0.2em; font: italic bold 5em serif; color: darkblue;}
+		td { padding: 0 0.5em 0 0.2em; font: italic bold 5em serif;
+				 color: darkblue;}
+		div#msg { font : italic 18px consolas, sans-serif;
+							color : magenta; margin-top : 10px; }
 	</style>
 	<script type="text/javascript">
-		var gameon = true;
+		var gameOver = false;
 		var gameArray = [0,0,0];
 
-		function randomInt(obj) {
+		function randomInt(e) {
+			if(gameOver == true)
+				return;
+
 			var newNo = Math.floor(Math.random()*3);
+			var obj = e.target;
 			obj.innerHTML = newNo;
+			obj.style.color = "purple";
+
+			switch (obj.id) {
+				case "slotOne":
+					gameArray[0] = newNo;	break;
+				case "slotTwo":
+					gameArray[1] = newNo;	break;
+				case "slotThree":
+					var divMsg = document.getElementById("msg");
+					gameArray[2] = newNo;
+					if(gameArray[0] == gameArray[1]
+						 && gameArray[1] == gameArray[2] ) {
+					divMsg.innerHTML = "Success(click here to do again)";
+				}	else {
+					divMsg.innerHTML = "fail(click here to do again)";
+				}
+					gameOver = true;
+					break;
+			}
+		}
+		function reset() {
+			for(var i=0; i<gameArray.length; i++) {
+				gameArray[i] = 0; // 3 개의 수 모두 0으로 초기화
+			}
+			var first = document.getElementById("slotOne");
+			first.innerHTML = 0;
+			first.style.color = "darkblue";
+
+			var second = document.getElementById("slotTwo");
+			second.innerHTML = 0;
+			second.style.color = "darkblue";
+
+			var third = document.getElementById("slotThree");
+			third.innerHTML = 0;
+			third.style.color = "darkblue";
+			document.getElementById("msg").innerHTML = "";
+			gameOver = false;
 		}
 	</script>
 </head>
@@ -29,11 +73,12 @@
 	<table>
 		<tbody>
 			<tr>
-				<td id="slotOne" onclick="randomInt(this)">0</td>
-				<td id="slotTwo" onclick="randomInt(this)">0</td>
-				<td id="slotThree" onclick="randomInt(this)">0</td>
+				<td id="slotOne" onclick="randomInt(event)">0</td>
+				<td id="slotTwo" onclick="randomInt(event)">0</td>
+				<td id="slotThree" onclick="randomInt(event)">0</td>
 			</tr>
 		</tbody>
 	</table>
+	<div id="msg" onclick="reset()"></div>
 </body>
 </html>

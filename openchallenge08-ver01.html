@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>겜블링 게임</title>
+	<style>
+		table { border-collapse: collapse; border: 2px solid pink;
+						background-color: rgb(255,217,230);}
+		td { padding: 0 0.5em 0 0.2em; font: italic bold 5em serif; color: darkblue;}
+	</style>
+	<script type="text/javascript">
+		var gameDone = [false,false,false]; //게임 진행중
+		var gameOver = false;
+		var gameArray = [0,0,0];
+
+		function randomInt(obj) {
+			if(gameOver == true)
+				return;
+			//var slotColor = document.getElementById(obj);
+			//var sc = slotColor.slice();
+			//var numC = new Array();
+			//for (var i=0; i<slotColor.length; i++) {
+			//	numC[i] = sc[i];
+			//}
+			var newNo = Math.floor(Math.random()*3);
+			obj.innerHTML = newNo;
+			obj.style.color = "purple";
+			while (!((gameDone[0]||gameDone[1])||(gameDone[1]||gameDone[2]))) {
+				switch (obj.id) {
+					case "slotOne":
+						if (gameDone[0] == false) {
+							gameArray[0] = newNo;
+							gameDone[0] = true;
+						}
+						break;
+					case "slotTwo":
+						if (gameDone[1] == false) {
+							gameArray[1] = newNo;
+							gameDone[1] = true;
+						}
+						break;
+					case "slotThree":
+						if (gameDone[2] == false) {
+							gameArray[2] = newNo;
+							gameDone[2] = true;
+						}
+						break;
+				}
+			}
+			if ((gameDone[0]&&gameDone[1])&&(gameDone[1]&&gameDone[2])) {
+				gameOver = true;
+				var askRedo = document.getElementById("msg")
+				if ((gameDone[0] == gameDone[1])&&(gameDone[1] == gameDone[2])) {
+					askRedo.innerHTML = "Success(click here to do again)";
+				}	else {
+					askRedo.innerHTML = "fail(click here to do again)";
+				}
+			}
+		}
+		function reset() {
+			for(var i=0; i<gameArray.length; i++)
+				gameArray[i] = 0; // 3 개의 수 모두 0으로 초기화
+			var first = document.getElementById("slotOne");
+			first.innerHTML = 0; first.style.color = "blue";
+
+			var second = document.getElementById("slotTwo");
+			second.innerHTML = 0; second.style.color = "blue";
+
+			var third = document.getElementById("slotThree");
+			third.innerHTML = 0; third.style.color = "blue";
+			document.getElementById("msg").innerHTML = "";
+			gameOver = false;
+		}
+	</script>
+</head>
+<body>
+	<h3>겜블링 게임</h3>
+	<p>각 숫자를 클릭하면 0에서 2사이의 난수로 바뀝니다.
+		모두 같은 수가 나오면 승리합니다.
+	</p>
+	<hr>
+	<table>
+		<tbody>
+			<tr>
+				<td id="slotOne" onclick="randomInt(this)">0</td>
+				<td id="slotTwo" onclick="randomInt(this)">0</td>
+				<td id="slotThree" onclick="randomInt(this)">0</td>
+			</tr>
+		</tbody>
+	</table>
+	<div id="msg" onclick="reset()"></div>
+</body>
+</html>
