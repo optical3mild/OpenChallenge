@@ -39,9 +39,9 @@
     var lastCount = new Array();
     lastNames[0] = nameList[0].charAt(0);
     lastCount[0] = 1;
-    for (i=1; i<nameList.length; i++) {
-      duplicated = false;
-      for (k=0; k<nameList.length; k++) {
+    for (var i=1; i<nameList.length; i++) {
+      var duplicated = false;
+      for (var k=0; k<nameList.length; k++) {
         if (nameList[i].charAt(0) == lastNames[k]) {
           lastCount[k]++;
           duplicated = true;
@@ -49,7 +49,7 @@
         }
       }
       if (!duplicated) {
-        lastNames[k] = nameList[i].charAt(0); //lastNames에 대입이 안되는 이유?;;;;
+        lastNames[k] = nameList[i].charAt(0); //lastNames DATA 1 ~ n-1: undefined = 값 할당x;;;;
         lastCount[k] = 1;
       }
     }
