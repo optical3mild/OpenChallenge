@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>정규표현식을 이용한 회원가입 폼 작성</title>
+  <style>
+    .rowTitle { font-size: small; text-align: right; width: 8em;}
+    .alertMsg { color: red; font-style: oblique; font-size: 0.5em;}
+    #bottom { text-align: center;}
+    input { border: 1px solid skyblue; width: 15em;}
+  </style>
+  <script type="text/javascript">
+    var evalId = /^[A-za-z]{5,15}/g; //ID확인
+    var evalPass = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/ //pass확인
+    var evalMail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    var evalPnum = /(\d{3}).*(\d{3}).*(\d{4})/
+
+    function checkInputs() { //작동용도
+      var iUsrId = document.getElementById("inpUserId");
+      var inPw = document.getElementById("inpPass");
+      var inPwRe = document.getElementById("inpPassRe");
+      var usrMail = document.getElementById("inpUserEmail");
+      var usrCallNo = document.getElementById("inpUserNo");
+
+      checkUserId(iUsrId);
+      checkPass(inPw, inPwRe);
+      checkMail(usrMail);
+      checkMobileNo(usrCallNo);
+    }
+
+    function checkUserId(obj) { //작동확인 완료.
+      if(!evalId.test(obj.value)) {
+        idRe.innerHTML = "숫자와 영문자 조합, 5자리 이상 15자리 이하로 입력하세요.";
+        idRe.style.color = "red";
+        obj.value = null;
+      } else {
+        idRe.innerHTML = "유효한 조합입니다."
+        idRe.style.color = "yellowgreen"
+      }
+    }
+
+    function checkPass(obj, objCopy) { //작동확인
+      if(!evalPass.test(obj.value)) {
+        passRe.innerHTML = "6~20개의 영문 대소문자와 최소 숫자 혹은 특수문자가 포함되도록 입력하세요."
+        passRe.style.color = "red"
+        obj.value = null;
+      } else {
+        passRe.innerHTML = "유효한 조합입니다."
+        passRe.style.color = "yellowgreen"
+      }
+      if(obj.value != objCopy.value) {
+        passRe2.innerHTML = "일치하지 않는 패스워드 입니다. 다시 입력하세요."
+        passRe2.style.color = "red";
+        objCopy.value = null;
+      } else {
+        passRe2.innerHTML = "비밀번호가 일치합니다."
+        passRe2.style.color = "yellowgreen"
+      }
+    }
+
+    function checkMail(obj) { //작동확인
+      if(!evalMail.test(obj.value)) {
+        usrMailRe.innerHTML = "eMail형식 'mail_id@host'로 입력하세요."
+        usrMailRe.style.color = "red"
+        obj.value = null;
+      } else {
+        usrMailRe.innerHTML = "유효한 형식입니다."
+        usrMailRe.style.color = "yellowgreen"
+      }
+    }
+
+    function checkMobileNo(obj) { //작동확인
+      if(!evalPnum.test(obj.value)) {
+        usrNoRe.innerHTML = "000-0000-0000 : 하이픈(-)을 포함하여 입력하세요."
+        usrNoRe.style.color = "red"
+        obj.value = null;
+      } else {
+        usrNoRe.innerHTML = "유효한 형식입니다."
+        usrNoRe.style.color = "yellowgreen"
+      }
+    }
+  </script>
+</head>
+<body onload="adjustSize()">
+  <form>
+    <fieldset>
+      <legend><b>회원가입</b></legend>
+      <table>
+        <tr>
+          <td class="rowTitle">아이디 :&nbsp;&nbsp;</td>
+          <td><input type="text" id="inpUserId" placeholder="5~15자리 영문/숫자"></td>
+        </tr>
+        <tr>
+          <td></td><td class="alertMsg" id="idRe"></td>
+        </tr>
+        <tr>
+          <td class="rowTitle">패스워드 :&nbsp;&nbsp;</td>
+          <td><input type="password" id="inpPass" placeholder="6~20자리 영문/숫자/특수문자"></td>
+        </tr>
+        <tr>
+          <td></td><td class="alertMsg" id="passRe"></td>
+        </tr>
+        <tr>
+          <td class="rowTitle">패스워드 확인 :&nbsp;&nbsp;</td>
+          <td><input type="password" id="inpPassRe" placeholder="패스워드를 한번 더 입력하세요"></td>
+        </tr>
+        <tr>
+          <td></td><td class="alertMsg" id="passRe2"></td>
+        </tr>
+        <tr>
+          <td class="rowTitle">eMail :&nbsp;&nbsp;</td>
+          <td><input type="text" id="inpUserEmail" placeholder="mail_id@host"></td>
+        </tr>
+        <tr>
+          <td></td><td class="alertMsg" id="usrMailRe"></td>
+        </tr>
+        <tr>
+          <td class="rowTitle">휴대전화 :&nbsp;&nbsp;</td>
+          <td><input type="text" id="inpUserNo" placeholder="000-0000-0000"></td>
+        </tr>
+        <tr>
+          <td></td><td class="alertMsg" id="usrNoRe"></td>
+        </tr>
+        <tr>
+          <td id="bottom" colspan="2">
+            <button type="button" onclick="checkInputs()">유효성 확인</button>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+  </form>
+</body>
+</html>
